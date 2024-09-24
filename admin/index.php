@@ -49,7 +49,6 @@ header("Content-Type: text/html");
           <li><a class="dropdown-item" href="logout.php">Logout</a></li>
         </ul>
       </div>
-      <!-- <a href="settings.php"><i class="bi bi-gear-wide-connected text-dark" style="font-size: 30px; cursor: pointer;"></i></a> -->
     </div>
     <div class="row p-0 m-0">
       <div class="col">
