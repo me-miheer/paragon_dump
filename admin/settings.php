@@ -1,4 +1,5 @@
 <?php
+require_once("checkLogin.php");
 require('../connection.php');
 header("Content-Type: text/html");
 $query = mysqli_query($mysql,'SELECT * FROM app_settings');
@@ -9,7 +10,7 @@ $data = mysqli_fetch_assoc($query);
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>Settings | Paragon</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.css" rel="stylesheet"/>
@@ -139,7 +140,7 @@ $data = mysqli_fetch_assoc($query);
         }
     </style>
   </head>
-  <body class="p-4" id="demo">
+  <body class="p-4 m-auto" style="max-width: 500px; min-height: 100vh; border-left: 3px solid gray; border-right: 3px solid gray;" id="demo">
     <div class="row pt-3 p-4">
         <div class="alert alert-secondary" role="alert">
             <strong>Be alert while editing </strong> these datas are very sensitive for the app.

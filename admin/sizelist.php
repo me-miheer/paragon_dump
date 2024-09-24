@@ -1,4 +1,5 @@
 <?php
+require_once("checkLogin.php");
 require('../connection.php');
 header("Content-Type: text/html");
 $query = mysqli_query($mysql, 'SELECT * FROM app_settings');
@@ -12,7 +13,7 @@ $query_fetch_tabular_data = mysqli_query($mysql, "SELECT * FROM item_sized ORDER
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>Sizes | Paragon</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.css" rel="stylesheet" />
@@ -22,7 +23,7 @@ $query_fetch_tabular_data = mysqli_query($mysql, "SELECT * FROM item_sized ORDER
     </style>
 </head>
 
-<body class="p-4" id="demo">
+<body class="p-4 m-auto" style="max-width: 500px; min-height: 100vh; border-left: 3px solid gray; border-right: 3px solid gray;" id="demo">
     <div class="row">
         <div class="col-6" style="display: flex; justify-content: start; align-items: center;">
             <h1 class="p-0 m-0 text-dark"><b><u>Size List</u></b></h1>

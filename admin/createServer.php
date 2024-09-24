@@ -1,3 +1,6 @@
+<?php
+require_once("checkLogin.php");
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -196,7 +199,7 @@
         }
     </style>
   </head>
-  <body class="p-4" id="demo">
+  <body class="p-4 m-auto" style="max-width: 500px; min-height: 100vh; border-left: 3px solid gray; border-right: 3px solid gray;" id="demo">
     <form id="form-utf" action="javascript:void(0);" onsubmit="submitme()" method="POST" autocomplete="off">
         <div class="row p-0 m-0">
             <label for=""><h2><b>Server Name</b></h2></label>

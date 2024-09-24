@@ -1,4 +1,5 @@
 <?php
+require_once("checkLogin.php");
 require('../connection.php');
 header("Content-Type: text/html");
 if (!isset($_GET['id'])) {
@@ -13,7 +14,7 @@ $data = mysqli_fetch_assoc(mysqli_query($mysql, "SELECT * FROM location where id
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bootstrap demo</title>
+  <title>Data Warehouse | Paragon</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
