@@ -44,21 +44,13 @@ header("Content-Type: text/html");
 
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" href="sizelist.php">Size List</a></li>
-          <!-- <li><a class="dropdown-item" href="article.php">Articles</a></li> -->
+          <li><a class="dropdown-item" href="article.php">Articles</a></li>
           <li><a class="dropdown-item" href="settings.php">Settings</a></li>
           <li><a class="dropdown-item" href="logout.php">Logout</a></li>
         </ul>
       </div>
       <!-- <a href="settings.php"><i class="bi bi-gear-wide-connected text-dark" style="font-size: 30px; cursor: pointer;"></i></a> -->
     </div>
-    <!-- <div class="row mt-3 mb-3">
-      <div class="col-6 text-center">
-        <div class="card bg-light bg-gradient text-secondary border-2 border-secondary p-2">Visitors<br>100</div>
-      </div>
-      <div class="col-6 text-center">
-        <div class="card bg-light bg-gradient text-secondary border-2 border-secondary p-2">Scans<br>100</div>
-      </div>
-    </div> -->
     <div class="row p-0 m-0">
       <div class="col">
         <a class="btn btn-success rounded-pill p-3 mt-2" href="createServer.php" style="width: 100%;">+ Create a new server</a>
