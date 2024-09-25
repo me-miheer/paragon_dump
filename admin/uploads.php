@@ -3,7 +3,6 @@ require('../connection.php');
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-header('Content-Type: text/html; charset=utf-8');
 
 
 
@@ -95,6 +94,7 @@ if (isset($_FILES['excelFile']) && $_FILES['excelFile']['error'] == 0) {
         "message" => "Error: No file uploaded or an error occurred during the upload."
     );
 }
+header('Content-Type: text/html; charset=utf-8');
 ?>
 
 <!DOCTYPE html>
