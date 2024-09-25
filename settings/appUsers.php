@@ -13,7 +13,7 @@ require('../connection.php');
 if (!empty($_REQUEST['key'])) {
     // Assuming $mysql is your MySQLi connection
     $keyName = mysqli_real_escape_string($mysql, $_REQUEST['key']);
-    
+
     $query = "SELECT * FROM item_sized WHERE KEYNAME = '$keyName'";
 
     // Execute the query
@@ -30,8 +30,41 @@ if (!empty($_REQUEST['key'])) {
     // Encode the response array to JSON and output it
     echo json_encode($respArr);
     exit;
-} else {
+} else if (!empty($_REQUEST['article'])) {
+
+    $article = mysqli_real_escape_string($mysql, $_REQUEST['article']);
+
+    $query = "SELECT gender FROM dump where article = '$article'";
+
+    // Execute the query
+    $result = mysqli_query($mysql, $query);
+
     
+    $respArr = array();
+    $respArr[] = ['data' => 'SELECT ANY'];  // Use [] to append elements in PHP arrays
+    
+    if($result->num_rows > 0) {
+        // Fetch data from the result set
+        while ($data = mysqli_fetch_assoc($result)) {
+            $respArr[] = ['data' => $data['gender']];  // Use [] to append elements in PHP arrays
+        }
+    }else{
+        $query = "SELECT distinct(KEYNAME) FROM item_sized";
+
+        // Execute the query
+        $result = mysqli_query($mysql, $query);
+
+        // Fetch data from the result set
+        while ($data = mysqli_fetch_assoc($result)) {
+            $respArr[] = ['data' => $data['KEYNAME']];  // Use [] to append elements in PHP arrays
+        }
+    }
+    
+
+    // Encode the response array to JSON and output it
+    echo json_encode($respArr);
+    exit;
+} else {
     $query = "SELECT distinct(KEYNAME) FROM item_sized";
 
     // Execute the query
@@ -49,5 +82,3 @@ if (!empty($_REQUEST['key'])) {
     echo json_encode($respArr);
     exit;
 }
-
-?>
