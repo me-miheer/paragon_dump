@@ -56,7 +56,7 @@ if (isset($_FILES['excelFile']) && $_FILES['excelFile']['error'] == 0) {
                             $successJobs++;
                         }
 
-                    } catch (\Throwable $th) {
+                    } catch (Exception $th) {
 
                         $txt[] = $th->getMessage();
                         $failedJobs++;
