@@ -92,7 +92,7 @@ if (isset($_FILES['excelFile']) && $_FILES['excelFile']['error'] == 0) {
 ?>
 
 <?php
-header(header: 'Content-Type: text/html; charset=utf-8');
+header('Content-Type: text/html; charset=utf-8');
 ?>
 <!DOCTYPE html>
 <html lang="en">
