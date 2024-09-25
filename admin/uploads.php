@@ -33,6 +33,8 @@ if (isset($_FILES['excelFile']) && $_FILES['excelFile']['error'] == 0) {
             if ($headers === $expectedHeaders) {
 
                 $txt = [];
+                $successJobs = 0;
+                $failedJobs = 0;
 
                 // Loop through the remaining CSV rows
                 while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
@@ -51,16 +53,20 @@ if (isset($_FILES['excelFile']) && $_FILES['excelFile']['error'] == 0) {
                             $mysqliQuery = mysqli_query($mysql, "INSERT INTO dump ( article, gender) VALUES ( '$article', '$gender' )");
     
                             $txt[] = "Success : Article : has been inserted successfully!";
+                            $successJobs++;
                         }
 
                     } catch (\Throwable $th) {
 
                         $txt[] = $th->getMessage();
+                        $failedJobs++;
 
                     }
                 }
 
                 $response[] = array(
+                    "suceessJobs" => $successJobs,
+                    "failedJobs" => $failedJobs,
                     "Jobs" => $txt
                 );
 
