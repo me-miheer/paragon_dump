@@ -117,26 +117,26 @@ if ($runcreateusersquery) {
           </th>
         </tr>
         <tr class="p-0 m-0">
-          <th colspan="2" class="p-0 m-0 bg-gradient p-1 text-dark" style="background-color:;">
+          <th colspan="2" class="p-0 m-0 bg-gradient p-1 text-dark">
             <nobr>TOTAL SETs</nobr>
           </th>
-          <th colspan="2" class="p-0 m-0 bg-gradient p-1 text-dark" style="background-color:;">
+          <th colspan="2" class="p-0 m-0 bg-gradient p-1 text-dark">
             <nobr><?= $setplusplus ?></nobr>
           </th>
         </tr>
         <tr class="p-0 m-0">
-          <th colspan="2" class="p-0 m-0 bg-gradient p-1 text-dark" style="background-color:;">
+          <th colspan="2" class="p-0 m-0 bg-gradient p-1 text-dark">
             <nobr>TOTAL PAIRs</nobr>
           </th>
-          <th colspan="2" class="p-0 m-0 bg-gradient p-1 text-dark" style="background-color:;">
+          <th colspan="2" class="p-0 m-0 bg-gradient p-1 text-dark">
             <nobr><?= $pairplusplus ?></nobr>
           </th>
         </tr>
         <tr class="p-0 m-0">
-          <th colspan="2" class="p-0 m-0 bg-gradient p-1 text-dark" style="background-color:;">
+          <th colspan="2" class="p-0 m-0 bg-gradient p-1 text-dark">
             <nobr>TOTAL CARTONs</nobr>
           </th>
-          <th colspan="2" class="p-0 m-0 bg-gradient p-1 text-dark" style="background-color:;">
+          <th colspan="2" class="p-0 m-0 bg-gradient p-1 text-dark">
             <nobr><?= $cartonplusplus ?></nobr>
           </th>
         </tr>
