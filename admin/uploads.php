@@ -1,5 +1,11 @@
 <?php
 require('../connection.php');
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+header(header: 'Content-Type: text/html; charset=utf-8');
+
+
 
 
 // Define the expected headers for validation
@@ -91,9 +97,6 @@ if (isset($_FILES['excelFile']) && $_FILES['excelFile']['error'] == 0) {
 }
 ?>
 
-<?php
-header('Content-Type: text/html; charset=utf-8');
-?>
 <!DOCTYPE html>
 <html lang="en">
 
