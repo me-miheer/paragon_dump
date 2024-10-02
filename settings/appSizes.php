@@ -35,7 +35,7 @@ while ($data = mysqli_fetch_assoc($result)) {
     http_response_code(200);
     $responce = array(
         'status' => 'true',
-        'response_code' => '403',
+        'response_code' => '200',
         'task_status' => 'true',
         'gender' => $respArr
     );
