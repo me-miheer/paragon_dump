@@ -230,7 +230,7 @@ if ($runcreateusersquery) {
           const xhttp2 = new XMLHttpRequest();
           xhttp2.onload = function() {
             let csvResult = JSON.parse(this.responseText);
-            print(csvResult);
+            console.log(csvResult);
             document.getElementById("floatingInputId").value = csvResult.id;
             document.getElementById("floatingInputArticle").value = csvResult.qr;
             document.getElementById("floatingInputQuantity").value = parseInt(csvResult.quantity);
