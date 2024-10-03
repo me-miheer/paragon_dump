@@ -51,13 +51,6 @@ if ($runcreateusersquery) {
         $cartonplusplus += $dataa['quantity'] ? $dataa['quantity'] : 0;
     }
   }
-
-  $curl_handle = curl_init();
-  curl_setopt($curl_handle, CURLOPT_URL, 'https://paragonteam.com/api/v2/settings/appUsers');
-  curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 2);
-  curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
-  $buffer = curl_exec($curl_handle);
-  curl_close($curl_handle);
 ?>
 
   <!DOCTYPE html>
@@ -188,13 +181,7 @@ if ($runcreateusersquery) {
             </div>
             <div class="form-floating mb-1">
               <select class="form-select" name="consumer" id="floatingSelectGender" aria-label="CONSUMER" onchange="changeSize(this.value)">
-                <?php
-                foreach (json_decode($buffer, true) as $genderList) {
-                ?>
-                  <option value="<?= $genderList['data'] == "SELECT ANY" ? "" : $genderList['data'] ?>" <?= $genderList['data'] == "SELECT ANY" ? "disabled" : "" ?>><?= $genderList['data'] ?></option>
-                <?php
-                }
-                ?>
+                <option value="<?= $genderList['data']?>" selected><?= $genderList['data']?></option>
               </select>
               <label for="floatingSelectGender">CONSUMER</label>
             </div>
