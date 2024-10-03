@@ -53,7 +53,7 @@ if(empty($_POST['name']) || empty($_POST['email']) || empty($_POST['mobile']) ||
 }
 // Check Email validation validation
 if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-    http_response_code(400);
+    http_response_code(200);
     $responce = array(
         'status' => 'false',
         'response_code' => '200',
