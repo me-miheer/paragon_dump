@@ -5,7 +5,7 @@ if(!isset($_GET['id'])){
     header('location:index.php');
 }
 $id = $_GET['id'];
-$data = mysqli_fetch_assoc(mysqli_query($mysql,"SELECT * FROM location where id = '$id' limit 1"));
+$data = mysqli_fetch_assoc(mysqli_query($mysql,"SELECT * FROM location where accesskey = '$id' limit 1"));
 ?>
 <!doctype html>
 <html lang="en">
