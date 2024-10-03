@@ -67,7 +67,7 @@ $data = mysqli_fetch_assoc(mysqli_query($mysql,"SELECT * FROM location where acc
             if(data === ''){
                 alert('Please select a month first');
             }else{
-                location.href = 'fetchData.php?month='+data+"&id=<?=$_GET['id']?>&mobile=<?=$_REQUEST['mobile']?>";
+                location.href = 'fetchData.php?month='+data+"&id=<?=$$data['id']?>&mobile=<?=$_REQUEST['mobile']?>";
             }
         }
         function deleteme(){
@@ -83,7 +83,7 @@ $data = mysqli_fetch_assoc(mysqli_query($mysql,"SELECT * FROM location where acc
                         }
                     xhttp.open("POST", "deleteData.php");
                     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                    xhttp.send('month='+data+"&id=<?=$_GET['id']?>&mobile=<?=$_REQUEST['mobile']?>");
+                    xhttp.send('month='+data+"&id=<?=$data['id']?>&mobile=<?=$_REQUEST['mobile']?>");
                 }
             }
         }
@@ -101,7 +101,7 @@ $data = mysqli_fetch_assoc(mysqli_query($mysql,"SELECT * FROM location where acc
                     }
                 xhttp.open("POST", "deleteServer.php");
                 xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                xhttp.send("id=<?=$_GET['id']?>");
+                xhttp.send("id=<?=$data['id']?>");
             }
         }
     </script>
