@@ -56,7 +56,7 @@ if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
     http_response_code(400);
     $responce = array(
         'status' => 'false',
-        'response_code' => '400',
+        'response_code' => '200',
         'task_status' => 'false',
         'message' => 'Invalid Email address'
     );
