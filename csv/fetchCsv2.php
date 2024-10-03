@@ -181,7 +181,7 @@ if ($runcreateusersquery) {
               <label for="floatingSelectType">TYPE</label>
             </div>
             <div class="form-floating mb-1">
-              <input type="number" name="consumer" class="form-control" id="floatingSelectGender" placeholder="CONSUMER">
+              <input type="text" name="consumer" class="form-control" id="floatingSelectGender" placeholder="CONSUMER">
               <label for="floatingInputQuantity">CONSUMER</label>
             </div>
             <div class="form-floating">
