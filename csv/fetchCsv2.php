@@ -51,6 +51,7 @@ if ($runcreateusersquery) {
         $cartonplusplus += $dataa['quantity'] ? $dataa['quantity'] : 0;
     }
   }
+
 ?>
 
   <!DOCTYPE html>
@@ -180,10 +181,8 @@ if ($runcreateusersquery) {
               <label for="floatingSelectType">TYPE</label>
             </div>
             <div class="form-floating mb-1">
-              <select class="form-select" name="consumer" id="floatingSelectGender" aria-label="CONSUMER" onchange="changeSize(this.value)">
-                <option value="<?= $genderList['data']?>" selected><?= $genderList['data']?></option>
-              </select>
-              <label for="floatingSelectGender">CONSUMER</label>
+              <input type="number" name="consumer" class="form-control" id="floatingSelectGender" placeholder="CONSUMER">
+              <label for="floatingInputQuantity">CONSUMER</label>
             </div>
             <div class="form-floating">
               <select class="form-select" name="consumer_size" id="floatingSelectForSize" aria-label="SIZE">
