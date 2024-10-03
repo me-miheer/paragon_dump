@@ -67,7 +67,7 @@ $data = mysqli_fetch_assoc(mysqli_query($mysql,"SELECT * FROM location where acc
             if(data === ''){
                 alert('Please select a month first');
             }else{
-                location.href = 'fetchData.php?month='+data+"&id=<?=$$data['id']?>&mobile=<?=$_REQUEST['mobile']?>";
+                location.href = 'fetchData.php?month='+data+"&id=<?=$data['id']?>&mobile=<?=$_REQUEST['mobile']?>";
             }
         }
         function deleteme(){
