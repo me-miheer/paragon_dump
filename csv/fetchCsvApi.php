@@ -28,39 +28,44 @@ if (isset($_REQUEST['serverkey']) && isset($_REQUEST['offset']) && isset($_REQUE
     $limit = (int) mysqli_real_escape_string($mysql, trim($_REQUEST['limit']));
     $mobile = mysqli_real_escape_string($mysql, trim($_REQUEST['mobile']));
 
-    // Query to get paginated data
-    $createuserquery = "SELECT * FROM csv_data 
-                        WHERE server_key = '$serverkey' 
-                        AND mobile_number = '$mobile' 
-                        AND acutal_date = '$present_date' 
-                        ORDER BY id DESC 
-                        LIMIT $offset, $limit";
+    // First query to calculate total quantities without pagination
+    $totalQuantityQuery = "SELECT 
+                            SUM(quantity) as total_quantity,
+                            SUM(CASE WHEN type = 'Set' THEN quantity ELSE 0 END) as total_set_quantity,
+                            SUM(CASE WHEN type = 'Pair' THEN quantity ELSE 0 END) as total_pair_quantity,
+                            SUM(CASE WHEN type = 'Carton' THEN quantity ELSE 0 END) as total_carton_quantity
+                           FROM csv_data 
+                           WHERE server_key = '$serverkey' 
+                           AND mobile_number = '$mobile' 
+                           AND acutal_date = '$present_date'";
+    
+    $totalQuantityResult = mysqli_query($mysql, $totalQuantityQuery);
+    
+    if ($totalQuantityResult) {
+        $totals = mysqli_fetch_assoc($totalQuantityResult);
+        $response['total_quantity'] = $totals['total_quantity'] ?? 0;
+        $response['total_set_quantity'] = $totals['total_set_quantity'] ?? 0;
+        $response['total_pair_quantity'] = $totals['total_pair_quantity'] ?? 0;
+        $response['total_carton_quantity'] = $totals['total_carton_quantity'] ?? 0;
+    }
 
-    $runcreateusersquery = mysqli_query($mysql, $createuserquery);
+    // Second query to get paginated data
+    $paginatedQuery = "SELECT * FROM csv_data 
+                       WHERE server_key = '$serverkey' 
+                       AND mobile_number = '$mobile' 
+                       AND acutal_date = '$present_date' 
+                       ORDER BY id DESC 
+                       LIMIT $offset, $limit";
+    
+    $paginatedResult = mysqli_query($mysql, $paginatedQuery);
 
     // Check if query execution was successful
-    if ($runcreateusersquery) {
+    if ($paginatedResult) {
         $datajson = [];
-        $total_quantity = 0;
-        $total_set_quantity = 0;
-        $total_pair_quantity = 0;
-        $total_carton_quantity = 0;
 
-        while ($data = mysqli_fetch_assoc($runcreateusersquery)) {
+        while ($data = mysqli_fetch_assoc($paginatedResult)) {
             // Add data to response array
             $datajson[] = $data;
-
-            // Calculate total quantity
-            $total_quantity += $data['quantity'];
-
-            // Calculate total based on types
-            if ($data['type'] === 'Set') {
-                $total_set_quantity += $data['quantity'];
-            } elseif ($data['type'] === 'Pair') {
-                $total_pair_quantity += $data['quantity'];
-            } elseif ($data['type'] === 'Carton') {
-                $total_carton_quantity += $data['quantity'];
-            }
         }
 
         // Update response with success and data
@@ -68,10 +73,6 @@ if (isset($_REQUEST['serverkey']) && isset($_REQUEST['offset']) && isset($_REQUE
         $response['status'] = 200;
         $response['message'] = 'Data fetched successfully';
         $response['data'] = $datajson;
-        $response['total_quantity'] = $total_quantity;
-        $response['total_set_quantity'] = $total_set_quantity;
-        $response['total_pair_quantity'] = $total_pair_quantity;
-        $response['total_carton_quantity'] = $total_carton_quantity;
     } else {
         http_response_code(500);
         $response['status'] = 500;
