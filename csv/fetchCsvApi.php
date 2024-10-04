@@ -22,11 +22,11 @@ $response = [
 ];
 
 // Check if required GET parameters are set
-if (isset($_GET['serverkey']) && isset($_GET['offset']) && isset($_GET['limit']) && isset($_GET['mobile'])) {
-    $serverkey = mysqli_real_escape_string($mysql, trim($_GET['serverkey']));
-    $offset = (int) mysqli_real_escape_string($mysql, trim($_GET['offset']));
-    $limit = (int) mysqli_real_escape_string($mysql, trim($_GET['limit']));
-    $mobile = mysqli_real_escape_string($mysql, trim($_GET['mobile']));
+if (isset($_REQUEST['serverkey']) && isset($_REQUEST['offset']) && isset($_REQUEST['limit']) && isset($_REQUEST['mobile'])) {
+    $serverkey = mysqli_real_escape_string($mysql, trim($_REQUEST['serverkey']));
+    $offset = (int) mysqli_real_escape_string($mysql, trim($_REQUEST['offset']));
+    $limit = (int) mysqli_real_escape_string($mysql, trim($_REQUEST['limit']));
+    $mobile = mysqli_real_escape_string($mysql, trim($_REQUEST['mobile']));
 
     // Query to get paginated data
     $createuserquery = "SELECT * FROM csv_data 
