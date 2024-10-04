@@ -7,8 +7,8 @@ header('Content-Type: application/json; charset=utf-8');
 $present_date = date('Y-m-d');
 
 // Define default values for pagination
-$offset = 0;
-$limit = 10;
+$page = 1; // Default to page 1
+$limit = 10; // Default limit
 
 // Prepare response structure
 $response = [
@@ -22,11 +22,14 @@ $response = [
 ];
 
 // Check if required GET parameters are set
-if (isset($_REQUEST['serverkey']) && isset($_REQUEST['offset']) && isset($_REQUEST['limit']) && isset($_REQUEST['mobile'])) {
+if (isset($_REQUEST['serverkey']) && isset($_REQUEST['page']) && isset($_REQUEST['limit']) && isset($_REQUEST['mobile'])) {
     $serverkey = mysqli_real_escape_string($mysql, trim($_REQUEST['serverkey']));
-    $offset = (int) mysqli_real_escape_string($mysql, trim($_REQUEST['offset']));
-    $limit = (int) mysqli_real_escape_string($mysql, trim($_REQUEST['limit']));
+    $page = (int) mysqli_real_escape_string($mysql, trim($_REQUEST['page'])); // Get current page
+    $limit = (int) mysqli_real_escape_string($mysql, trim($_REQUEST['limit'])); // Get limit
     $mobile = mysqli_real_escape_string($mysql, trim($_REQUEST['mobile']));
+
+    // Calculate offset
+    $offset = ($page - 1) * $limit;
 
     // First query to calculate total quantities without pagination
     $totalQuantityQuery = "SELECT 
@@ -73,6 +76,9 @@ if (isset($_REQUEST['serverkey']) && isset($_REQUEST['offset']) && isset($_REQUE
         $response['status'] = 200;
         $response['message'] = 'Data fetched successfully';
         $response['data'] = $datajson;
+        // Include pagination info
+        $response['current_page'] = $page;
+        $response['total_pages'] = ceil($response['total_quantity'] / $limit); // Total pages based on limit
     } else {
         http_response_code(500);
         $response['status'] = 500;
