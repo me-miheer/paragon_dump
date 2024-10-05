@@ -98,6 +98,7 @@ $mysql->close();
                         <th>#</th>
                         <th>Article</th>
                         <th>Gender</th>
+                        <th>QR</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -114,6 +115,7 @@ $mysql->close();
                                 <td><?= $i ?></td>
                                 <td><?= $row['article'] ?></td>
                                 <td><?= $row['gender'] ?></td>
+                                <td><img src="https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=<?=$row['article']?>" alt="qr" width="50" height="50"></td>
                             </tr>
                         <?php
                             $i++;
