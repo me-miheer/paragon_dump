@@ -72,13 +72,22 @@ if (isset($_REQUEST['serverkey']) && isset($_REQUEST['page']) && isset($_REQUEST
         }
 
         // Update response with success and data
-        http_response_code(200);
-        $response['status'] = 200;
-        $response['message'] = 'Data fetched successfully';
-        $response['data'] = $datajson;
-        // Include pagination info
-        $response['current_page'] = $page;
-        $response['total_pages'] = ceil($response['total_quantity'] / $limit); // Total pages based on limit
+        if($response['total_quantity'] > 0){
+            http_response_code(200);
+            $response['status'] = 200;
+            $response['message'] = 'Data fetched successfully';
+            $response['data'] = $datajson;
+            $response['current_page'] = $page;
+            $response['total_pages'] = ceil($response['total_quantity'] / $limit); // Total pages based on limit
+        }else{
+            http_response_code(200);
+            $response['status'] = 200;
+            $response['message'] = 'NoData';
+            $response['data'] = $datajson;
+            // Include pagination info
+            $response['current_page'] = $page;
+            $response['total_pages'] = ceil($response['total_quantity'] / $limit); // Total pages based on limit
+        }
     } else {
         http_response_code(500);
         $response['status'] = 500;
