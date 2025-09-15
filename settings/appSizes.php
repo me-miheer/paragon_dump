@@ -20,7 +20,7 @@ $limit = mysqli_real_escape_string($mysql, $_REQUEST['limit']??10);
 // Assuming $mysql is your MySQLi connection
 $keyName = mysqli_real_escape_string($mysql, $_REQUEST['key']);
 
-$query = "SELECT * FROM item_sized WHERE SIZE LIKE '%$keyName%'";
+$query = "SELECT * FROM dumpv2 WHERE article LIKE '$keyName'";
 
 // Execute the query
 $result = mysqli_query($mysql, $query);
@@ -30,7 +30,11 @@ $respArr = array();
 if($result->num_rows > 0) {
 // Fetch data from the result set
 while ($data = mysqli_fetch_assoc($result)) {
-    $respArr[] = $data['SIZE'];  // Use [] to append elements in PHP arrays
+    $respArr[] = $data['size'];  // Use [] to append elements in PHP arrays
+}
+
+if(count($respArr) == 0) {
+    $respArr[] = 'Default';
 }
 
     http_response_code(200);

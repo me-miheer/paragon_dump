@@ -64,6 +64,7 @@ $type = mysqli_real_escape_string($mysql,trim($_POST['type']));
 $town = mysqli_real_escape_string($mysql,trim($_POST['town']));
 $consumer = mysqli_real_escape_string($mysql,trim($_POST['consumer']));
 $consumerSizes = $_POST['consumerSizes'];
+$retailType = $_POST['retailType'];
 $serverkey = mysqli_real_escape_string($mysql,trim($_POST['serverkey']));
 $server = mysqli_real_escape_string($mysql,trim($_POST['server']));
 $time = date('d-m-Y h:i A',time());
@@ -96,7 +97,7 @@ foreach(json_decode($consumerSizes, true) as $key => $value) {
 }
     $quantity = $value['quantity'];
     $consumerSize = $value['size'];
-    $createuserquery = "INSERT INTO csv_data (qr,name,quantity,dealer,shop_name,mobile_number,type,town,consumer,consumer_size,server_key,server,time,acutal_date) VALUES ('$qr','$name','$quantity','$dealer','$shop','$mobile','$type','$town','$consumer','$consumerSize','$serverkey','$server','$time','$actual_date')";
+    $createuserquery = "INSERT INTO csv_data_new (qr,name,quantity,dealer,shop_name,mobile_number,type,town,consumer,consumer_size,retailType,server_key,server,time,acutal_date) VALUES ('$qr','$name','$quantity','$dealer','$shop','$mobile','$type','$town','$consumer','$consumerSize','$retailType','$serverkey','$server','$time','$actual_date')";
     $runcreateusersquery = mysqli_query($mysql,$createuserquery);
 }
 
