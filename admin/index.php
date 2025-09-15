@@ -44,7 +44,7 @@ header("Content-Type: text/html");
 
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" href="sizelist.php">Size List</a></li>
-          <li><a class="dropdown-item" href="articlee.php">Articles</a></li>
+          <li><a class="dropdown-item" href="articleV2.php">ArticlesV2</a></li>
           <li><a class="dropdown-item" href="settings.php">Settings</a></li>
           <li><a class="dropdown-item" href="logout.php">Logout</a></li>
         </ul>

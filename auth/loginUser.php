@@ -100,6 +100,7 @@ if(!password_verify($password,$checkuser['password'])){
         'email' => $checkuser['email'],
         'mobile' => $checkuser['mobile'],
         'dealer' => $checkuser['dealer'],
+        'retailType' => $checkuser['retailType'],
         'shop' => $checkuser['shop'],
         'town' => $checkuser['town'],
         'created_at' => date('d/m/Y h:i A',$checkuser['created_at']),

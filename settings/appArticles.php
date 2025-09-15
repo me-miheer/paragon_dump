@@ -16,7 +16,7 @@ if(empty($article)){
     exit;
 }
 
-$query = "SELECT gender FROM dump where article = '$article'";
+$query = "SELECT scheme FROM dumpV2 where article = '$article'";
 
 // Execute the query
 $result = mysqli_query($mysql, $query);
@@ -27,7 +27,7 @@ $respArr = null;
 if($result->num_rows > 0) {
     // Fetch data from the result set
     while ($data = mysqli_fetch_assoc($result)) {
-        $respArr = $data['gender'];  // Use [] to append elements in PHP arrays
+        $respArr = $data['scheme'];  // Use [] to append elements in PHP arrays
     }
 
     http_response_code(200);

@@ -68,6 +68,7 @@ $name = mysqli_real_escape_string($mysql,trim($_POST['name']));
 $email = mysqli_real_escape_string($mysql,trim($_POST['email']));
 $mobile = mysqli_real_escape_string($mysql,trim($_POST['mobile']));
 $shop = mysqli_real_escape_string($mysql,trim($_POST['shop']));
+$retailType = mysqli_real_escape_string($mysql,trim($_POST['retailType']));
 $town = mysqli_real_escape_string($mysql,trim($_POST['town']));
 
 //check weather email address already exists or not
@@ -99,7 +100,7 @@ if(empty($checkuser['email'])){
 }
 
 // Check wather somthing is there to change or not
-if(trim($checkuser['mobile']) == $mobile && trim($checkuser['name']) == $name && trim($checkuser['shop']) == $shop && trim($checkuser['town']) == $town){
+if(trim($checkuser['mobile']) == $mobile && trim($checkuser['name']) == $name && trim($checkuser['shop']) == $shop && trim($checkuser['town']) == $town && trim($checkuser['retailType']) == $retailType){
     http_response_code(200); 
     $responce = array(
         'status' => 'true',
@@ -111,7 +112,7 @@ if(trim($checkuser['mobile']) == $mobile && trim($checkuser['name']) == $name &&
     exit;
 }
 
-$createuserquery = "UPDATE user set name = '$name', mobile = '$mobile', shop = '$shop', town = '$town' where email = '$email'";
+$createuserquery = "UPDATE user set name = '$name', mobile = '$mobile', shop = '$shop', town = '$town', retailType = '$retailType' where email = '$email'";
 $runcreateusersquery = mysqli_query($mysql,$createuserquery);
 // check if user created or not.
 if($runcreateusersquery){
@@ -127,6 +128,7 @@ if($runcreateusersquery){
         'email' => $checkuser['email'],
         'mobile' => $checkuser['mobile'],
         'dealer' => $checkuser['dealer'],
+        'retailType' => $checkuser['retailType'],
         'shop' => $checkuser['shop'],
         'town' => $checkuser['town'],
         'created_at' => date('d/m/Y h:i A',$checkuser['created_at']),

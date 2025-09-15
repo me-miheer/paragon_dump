@@ -68,6 +68,7 @@ $name = mysqli_real_escape_string($mysql,trim($_POST['name']));
 $email = mysqli_real_escape_string($mysql,trim($_POST['email']));
 $mobile = mysqli_real_escape_string($mysql,trim($_POST['mobile']));
 $dealer = mysqli_real_escape_string($mysql,trim($_POST['dealer']));
+$retailType = mysqli_real_escape_string($mysql,trim($_POST['retailType']));
 $shop = mysqli_real_escape_string($mysql,trim($_POST['shop']));
 $town = mysqli_real_escape_string($mysql,trim($_POST['town']));
 $password = trim(password_hash(mysqli_real_escape_string($mysql,$_POST['password']),PASSWORD_DEFAULT));
@@ -117,7 +118,7 @@ if(!empty($checkuser['email'])){
     exit;
 }
 
-$createuserquery = "INSERT INTO user (name,email,mobile,dealer,shop,town,password,actual_date,created_at) VALUES ('$name','$email','$mobile','$dealer','$shop','$town','$password','$actual_date','$created_at')";
+$createuserquery = "INSERT INTO user (name,email,mobile,dealer,retailType,shop,town,password,actual_date,created_at) VALUES ('$name','$email','$mobile','$dealer','$retailType','$shop','$town','$password','$actual_date','$created_at')";
 $runcreateusersquery = mysqli_query($mysql,$createuserquery);
 // check if user created or not.
 if($runcreateusersquery){
