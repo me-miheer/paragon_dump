@@ -76,7 +76,6 @@ $consumer_key = 3;
 }else{
 $consumer_key = 0;
 }
-$consumer_key  = $_POST['consumerSizes'];
 $retailType = $_POST['retailType'];
 $serverkey = mysqli_real_escape_string($mysql,trim($_POST['serverkey']));
 $server = mysqli_real_escape_string($mysql,trim($_POST['server']));
@@ -110,7 +109,7 @@ foreach(json_decode($consumerSizes, true) as $key => $value) {
 }
     $quantity = $value['quantity'];
     $consumerSize = $value['size'];
-    $createuserquery = "INSERT INTO csv_data_new (qr,name,quantity,dealer,shop_name,mobile_number,type,town,consumer,consumer_size,consumer_key,retailType,server_key,server,time,acutal_date) VALUES ('$qr','$name','$quantity','$dealer','$shop','$mobile','$type','$town','$consumer','$consumer_key','$consumerSize','$retailType','$serverkey','$server','$time','$actual_date')";
+    $createuserquery = "INSERT INTO csv_data_new (qr,name,quantity,dealer,shop_name,mobile_number,type,town,consumer,consumer_size,consumer_key,retailType,server_key,server,time,acutal_date) VALUES ('$qr','$name','$quantity','$dealer','$shop','$mobile','$type','$town','$consumer','$consumerSize','$consumer_key','$retailType','$serverkey','$server','$time','$actual_date')";
     $runcreateusersquery = mysqli_query($mysql,$createuserquery);
 }
 
