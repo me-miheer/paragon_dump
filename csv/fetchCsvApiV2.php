@@ -65,18 +65,18 @@ if (isset($_REQUEST['serverkey']) && isset($_REQUEST['page']) && isset($_REQUEST
     if ($totalQuantityResult) {
         $totals = mysqli_fetch_assoc($totalQuantityResult);
         $response['total_quantity'] = $totals['total_quantity'] ?? 0;
-        $response['total_set_quantity_solea'] = $totals['total_set_quantity_solea'] ?? 0;
-        $response['total_pair_quantity_solea'] = $totals['total_pair_quantity_solea'] ?? 0;
-        $response['total_carton_quantity_solea'] = $totals['total_carton_quantity_solea'] ?? 0;
-        $response['total_set_quantity_slikers'] = $totals['total_set_quantity_slikers'] ?? 0;
-        $response['total_pair_quantity_slikers'] = $totals['total_pair_quantity_slikers'] ?? 0;
-        $response['total_carton_quantity_slikers'] = $totals['total_carton_quantity_slikers'] ?? 0;
-        $response['total_set_quantity_ptoes'] = $totals['total_set_quantity_ptoes'] ?? 0;
-        $response['total_pair_quantity_ptoes'] = $totals['total_pair_quantity_ptoes'] ?? 0;
-        $response['total_carton_quantity_ptoes'] = $totals['total_carton_quantity_ptoes'] ?? 0;
-        $response['total_set_quantity_vertex'] = $totals['total_set_quantity_vertex'] ?? 0;
-        $response['total_pair_quantity_vertex'] = $totals['total_pair_quantity_vertex'] ?? 0;
-        $response['total_carton_quantity_vertex'] = $totals['total_carton_quantity_vertex'] ?? 0;
+        $response['total_set_quantity_solea'] = $totals['total_set_quantity_solea'] ?? "0";
+        $response['total_pair_quantity_solea'] = $totals['total_pair_quantity_solea'] ?? "0";
+        $response['total_carton_quantity_solea'] = $totals['total_carton_quantity_solea'] ?? "0";
+        $response['total_set_quantity_slikers'] = $totals['total_set_quantity_slikers'] ?? "0";
+        $response['total_pair_quantity_slikers'] = $totals['total_pair_quantity_slikers'] ?? "0";
+        $response['total_carton_quantity_slikers'] = $totals['total_carton_quantity_slikers'] ?? "0";
+        $response['total_set_quantity_ptoes'] = $totals['total_set_quantity_ptoes'] ?? "0";
+        $response['total_pair_quantity_ptoes'] = $totals['total_pair_quantity_ptoes'] ?? "0";
+        $response['total_carton_quantity_ptoes'] = $totals['total_carton_quantity_ptoes'] ?? "0";
+        $response['total_set_quantity_vertex'] = $totals['total_set_quantity_vertex'] ?? "0";
+        $response['total_pair_quantity_vertex'] = $totals['total_pair_quantity_vertex'] ?? "0";
+        $response['total_carton_quantity_vertex'] = $totals['total_carton_quantity_vertex'] ?? "0";
     }
 
     // Second query to get paginated data
