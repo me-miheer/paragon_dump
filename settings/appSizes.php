@@ -2,8 +2,8 @@
 
 require('../connection.php');
 
-$article = mysqli_real_escape_string($mysql, $_REQUEST['key']??null);
-$limit = mysqli_real_escape_string($mysql, $_REQUEST['limit']??10);
+$article = mysqli_real_escape_string($mysql, $_REQUEST['key'] ?? null);
+$limit = mysqli_real_escape_string($mysql, $_REQUEST['limit'] ?? 10);
 
 // if(empty($article)){
 //     http_response_code(403);
@@ -20,22 +20,22 @@ $limit = mysqli_real_escape_string($mysql, $_REQUEST['limit']??10);
 // Assuming $mysql is your MySQLi connection
 $keyName = mysqli_real_escape_string($mysql, $_REQUEST['key']);
 
-$query = "SELECT * FROM dumpv2 WHERE article LIKE '$keyName'";
+$query = "SELECT DISTINCT size FROM dumpv2 WHERE article LIKE '$keyName'";
 
 // Execute the query
 $result = mysqli_query($mysql, $query);
 
 $respArr = array();
 
-if($result->num_rows > 0) {
-// Fetch data from the result set
-while ($data = mysqli_fetch_assoc($result)) {
-    $respArr[] = $data['size'];  // Use [] to append elements in PHP arrays
-}
+if ($result->num_rows > 0) {
+    // Fetch data from the result set
+    while ($data = mysqli_fetch_assoc($result)) {
+        $respArr[] = $data['size'];  // Use [] to append elements in PHP arrays
+    }
 
-if(count($respArr) == 0) {
-    $respArr[] = 'Default';
-}
+    if (count($respArr) == 0) {
+        $respArr[] = 'Default';
+    }
 
     http_response_code(200);
     $responce = array(
@@ -46,7 +46,7 @@ if(count($respArr) == 0) {
     );
     echo json_encode($responce);
     exit;
-}else{
+} else {
     http_response_code(403);
     $responce = array(
         'status' => 'false',
