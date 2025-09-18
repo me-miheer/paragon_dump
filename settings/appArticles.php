@@ -3,6 +3,7 @@
 require('../connection.php');
 
 $article = mysqli_real_escape_string($mysql, $_REQUEST['article']);
+$mobileNum = mysqli_real_escape_string($mysql, $_REQUEST['mobile']);
 
 if(empty($article)){
     http_response_code(403);
@@ -21,6 +22,11 @@ $query = "SELECT scheme FROM dumpV2 where article = '$article'";
 // Execute the query
 $result = mysqli_query($mysql, $query);
 
+$query2 = "SELECT qr FROM csv_data_new where qr = '$article' and mobile_number = '$mobileNum' limit 1";
+
+// Execute the query
+$result2 = mysqli_query($mysql, $query2);
+
 
 $respArr = null;
 
@@ -36,7 +42,8 @@ if($result->num_rows > 0) {
         'response_code' => '200',
         'task_status' => 'true',
         'article' => $article,
-        'gender' => $respArr
+        'scheme' => $respArr,
+        'editable' => !empty($result2->fetch_assoc()['qr']) ? "true" : "false"
     );
     echo json_encode($responce);
     exit;

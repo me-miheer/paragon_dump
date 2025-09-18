@@ -42,7 +42,7 @@ if ($result->num_rows > 0) {
         'status' => 'true',
         'response_code' => '200',
         'task_status' => 'true',
-        'gender' => $respArr
+        'sizes' => $respArr
     );
     echo json_encode($responce);
     exit;

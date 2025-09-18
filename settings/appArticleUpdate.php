@@ -3,15 +3,20 @@
 require('../connection.php');
 
 $article = mysqli_real_escape_string($mysql, $_REQUEST['key'] ?? null);
+$mobile = mysqli_real_escape_string($mysql, $_REQUEST['mobile'] ?? null);
 
 $keyName = mysqli_real_escape_string($mysql, $_REQUEST['key']);
 
-$query = "SELECT * FROM csv_data_new WHERE qr LIKE '$keyName'";
+$query = "SELECT * FROM csv_data_new WHERE qr LIKE '$keyName' and mobile_number = '$mobile' ORDER BY id ASC";
 
 $result = mysqli_query($mysql, $query);
 
+$query2 = "SELECT DISTINCT size FROM dumpv2 WHERE article LIKE '$keyName'";
+$result2 = mysqli_query($mysql, $query2);
+
 
 $respArr = array();
+$respArr2 = array();
 $articleData = "";
 $typeData = "";
 
@@ -29,6 +34,11 @@ while ($data = mysqli_fetch_assoc(result: $result)) {
         $respArr[] = $tamp;
     }
 }
+while ($data2 = mysqli_fetch_assoc(result: $result2)) {
+    if(!in_array($data2["size"], $respArr)){
+        $respArr2[] = $data2["size"];
+    }
+}
 
 if(count($respArr) == 0) {
     $respArr[] = 'Default';
@@ -43,7 +53,8 @@ if(count($respArr) == 0) {
             "article" => $articleData,
             "type" => $typeData,
             "sizes" => $respArr
-        )
+        ),
+        "size" => $respArr2
     );
     echo json_encode($responce);
     exit;
