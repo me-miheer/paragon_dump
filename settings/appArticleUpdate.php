@@ -1,6 +1,9 @@
 <?php
 
 require('../connection.php');
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 $article = mysqli_real_escape_string($mysql, $_REQUEST['key'] ?? null);
 $mobile = mysqli_real_escape_string($mysql, $_REQUEST['mobile'] ?? null);
