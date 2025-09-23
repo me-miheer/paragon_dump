@@ -13,7 +13,7 @@ $limitArr = ['10','50','100','200','500','1000'];
 $orderArr = ['ASC','DESC'];
 
 // SQL query
-$querySyntax = "SELECT * FROM dumpV2 ORDER BY $sort_by $order LIMIT $skip, $limit";
+$querySyntax = "SELECT * FROM dumpv2 ORDER BY $sort_by $order LIMIT $skip, $limit";
 
 // Run query
 $result = mysqli_query($mysql, $querySyntax);

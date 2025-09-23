@@ -52,7 +52,7 @@ if (isset($_FILES['excelFile']) && $_FILES['excelFile']['error'] == 0) {
                             $size = mysqli_real_escape_string($mysql, !empty(trim($data[1])) ? $data[1] : null);
                             $scheme = mysqli_real_escape_string($mysql, !empty(trim($data[2])) ? $data[2] : null);
     
-                            $mysqliQuery = mysqli_query($mysql, "INSERT INTO dumpV2 ( article, size, scheme) VALUES ( '$article', '$size', '$scheme' )");
+                            $mysqliQuery = mysqli_query($mysql, "INSERT INTO dumpv2 ( article, size, scheme) VALUES ( '$article', '$size', '$scheme' )");
     
                             $txt[] = "Success : Article : has been inserted successfully!";
                             $successJobs++;
