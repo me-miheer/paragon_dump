@@ -56,7 +56,7 @@ try {
 
 
     // Setting up all the parameters 
-    $name = mysqli_real_escape_string($mysql, trim(string: $_POST['name']));
+    $name = mysqli_real_escape_string($mysql, trim( $_POST['name']));
     $qr = mysqli_real_escape_string($mysql, trim($_POST['qr']));
     $dealer = mysqli_real_escape_string($mysql, trim($_POST['dealer']));
     $shop = mysqli_real_escape_string($mysql, trim($_POST['shop']));
@@ -185,7 +185,7 @@ try {
     );
     echo json_encode($responce);
     exit;
-} catch (\Throwable $th) {
+} catch (Exception $th) {
     http_response_code(503);
     $responce = array(
         'status' => 'false',
