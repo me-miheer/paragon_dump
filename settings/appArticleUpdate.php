@@ -1,9 +1,6 @@
 <?php
 
 require('../connection.php');
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
 $article = mysqli_real_escape_string($mysql, $_REQUEST['key'] ?? null);
 $mobile = mysqli_real_escape_string($mysql, $_REQUEST['mobile'] ?? null);
@@ -25,7 +22,7 @@ $typeData = "";
 
 if($result->num_rows > 0) {
 // Fetch data from the result set
-while ($data = mysqli_fetch_assoc(result: $result)) {
+while ($data = mysqli_fetch_assoc($result)) {
     $articleData  = $data["qr"];
     $typeData  = $data["type"];
     $tamp = [];
@@ -37,7 +34,7 @@ while ($data = mysqli_fetch_assoc(result: $result)) {
         $respArr[] = $tamp;
     }
 }
-while ($data2 = mysqli_fetch_assoc(result: $result2)) {
+while ($data2 = mysqli_fetch_assoc($result2)) {
     if(!in_array($data2["size"], $respArr)){
         $respArr2[] = $data2["size"];
     }
