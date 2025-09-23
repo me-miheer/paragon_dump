@@ -1,50 +1,26 @@
 <?php
 require_once("checkLogin.php");
-require('../connection.php');
+require('../connection.php'); // Make sure $mysql is mysqli connection
 header('Content-Type: text/html; charset=utf-8');
 
 // Fetch pagination parameters
-$limit = isset($_GET['limit']) ? intval($_GET['limit']) : 10;   // Number of records per page
-$skip = isset($_GET['skip']) ? intval($_GET['skip']) : 0;       // Number of records to skip
-$order = isset($_GET['order']) && in_array($_GET['order'], ['ASC', 'DESC']) ? $_GET['order'] : 'ASC'; // Order direction
-$sort_by = isset($_GET['sort_by']) ? $_GET['sort_by'] : 'id';   // Column to sort by
-$limitArr = [
-    '10',
-    '50',
-    '100',
-    '200',
-    '500',
-    '1000'
-];
+$limit = isset($_GET['limit']) ? intval($_GET['limit']) : 10;
+$skip = isset($_GET['skip']) ? intval($_GET['skip']) : 0;
+$order = isset($_GET['order']) && in_array($_GET['order'], ['ASC', 'DESC']) ? $_GET['order'] : 'ASC';
+$sort_by = isset($_GET['sort_by']) ? $_GET['sort_by'] : 'id';
 
-$orderArr = [
-    'ASC',
-    'DESC'
-];
+$limitArr = ['10','50','100','200','500','1000'];
+$orderArr = ['ASC','DESC'];
 
-// Prepare the SQL query
-$querySyntax = "SELECT * FROM dumpV2 ORDER BY $sort_by $order LIMIT ?, ?";
-$stmt = $mysql->prepare($querySyntax); // Use the correct variable $querySyntax instead of $sql
+// SQL query
+$querySyntax = "SELECT * FROM dumpV2 ORDER BY $sort_by $order LIMIT $skip, $limit";
 
-// Bind parameters
-$stmt->bind_param("ii", $skip, $limit);
-
-// Execute the query
-$stmt->execute();
-
-$result = $stmt->get_result();
-
-// Fetch the result set
-$data = [];
-
-// Close the connection
-$stmt->close();
-$mysql->close();
+// Run query
+$result = mysqli_query($mysql, $querySyntax);
 ?>
 
 <!doctype html>
 <html lang="en" data-bs-theme="dark">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -59,32 +35,34 @@ $mysql->close();
 </head>
 
 <body class="p-4 m-auto" style="max-width: 500px; min-height: 100vh; border-left: 3px solid gray; border-right: 3px solid gray;" id="demo">
-    <section id="body" class="">
+    <section id="body">
         <div class="row">
             <div class="col-6" style="display: flex; justify-content: start; align-items: center;">
                 <h1><b><u>ArticleV2</u></b></h1>
             </div>
-            <div class="col-6" style="display: flex; justify-content: end; align-items: center;"><a href="uploadV2.php" style="text-decoration: underline;">Upload File</a></div>
+            <div class="col-6" style="display: flex; justify-content: end; align-items: center;">
+                <a href="uploadV2.php" style="text-decoration: underline;">Upload File</a>
+            </div>
         </div>
 
         <div class="hstack gap-3 mt-3">
-            <select name="" id="hstack-limit" class="btn btn-secondary" onchange="redirectData()">
+            <select id="hstack-limit" class="btn btn-secondary" onchange="redirectData()">
                 <?php
-                echo '<option value="' . $limit . '" selected>' . $limit . '</option>';
+                echo '<option value="'.$limit.'" selected>'.$limit.'</option>';
                 foreach ($limitArr as $row) {
                     if ($row != $limit) {
-                        echo '<option value="' . $row . '">' . $row . '</option>';
+                        echo '<option value="'.$row.'">'.$row.'</option>';
                     }
                 }
                 ?>
             </select>
-            <!-- <div class="vr"></div> -->
-            <select name="" id="hstack-order" class="btn btn-outline-secondary" onchange="redirectData()">
+
+            <select id="hstack-order" class="btn btn-outline-secondary" onchange="redirectData()">
                 <?php
-                echo '<option value="' . $order . '" selected>' . $order . '</option>';
+                echo '<option value="'.$order.'" selected>'.$order.'</option>';
                 foreach ($orderArr as $row) {
                     if ($row != $order) {
-                        echo '<option value="' . $row . '">' . $row . '</option>';
+                        echo '<option value="'.$row.'">'.$row.'</option>';
                     }
                 }
                 ?>
@@ -103,53 +81,37 @@ $mysql->close();
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- List -->
                     <?php
                     $i = 1;
-
-                    // Check if there are results
-                    if ($result->num_rows > 0) {
-                        // Loop through the results if data exists
-                        while ($row = $result->fetch_assoc()) {
-                    ?>
+                    if ($result && mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            ?>
                             <tr>
                                 <td><?= $i ?></td>
                                 <td><?= $row['article'] ?></td>
                                 <td><?= $row['size'] ?></td>
                                 <td><?= $row['scheme'] ?></td>
-                                <td><img src="https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=<?=$row['article']?>" alt="qr" width="50" height="50"></td>
+                                <td>
+                                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=<?= $row['article'] ?>" 
+                                         alt="qr" width="50" height="50">
+                                </td>
                             </tr>
-                        <?php
+                            <?php
                             $i++;
                         }
                     } else {
-                        // Display this if no results are found
                         ?>
                         <tr>
-                            <td colspan="3">No data found</td>
+                            <td colspan="5">No data found</td>
                         </tr>
-                    <?php
+                        <?php
                     }
                     ?>
-                    <!-- List -->
                 </tbody>
             </table>
         </div>
-        <!-- 
-            <div class="row">
-                <div class="col-12" style="display: flex; justify-content: end; align-items: flex-end;">
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                            <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                        </ul>
-                    </nav>
-                </div>
-            </div> -->
     </section>
+
     <script>
         function redirectData() {
             let hstackLimit = document.getElementById("hstack-limit").value;
@@ -157,7 +119,6 @@ $mysql->close();
             location.replace("articleV2.php?skip=0&limit=" + hstackLimit + "&order=" + hstackOrder);
         }
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
