@@ -1,8 +1,8 @@
 <?php
 require('../connection.php');
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 
 //check weather request method is post
 if($_SERVER['REQUEST_METHOD'] != 'POST'){
@@ -69,16 +69,16 @@ $town = mysqli_real_escape_string($mysql,trim($_POST['town']));
 $consumer = mysqli_real_escape_string($mysql,trim($_POST['consumer']));
 $consumerSizes = $_POST['consumerSizes'];
 $consumer_key  = 0;
-if(str_contains(strtolower($consumer),'slicker')){
-$consumer_key = 4;
-}elseif(str_contains(strtolower($consumer),'vertex')){
-$consumer_key = 2;
-}elseif(str_contains(strtolower($consumer),'solea')){
-$consumer_key = 1;
-}elseif(str_contains(strtolower($consumer),'toes')){
-$consumer_key = 3;
-}else{
-$consumer_key = 0;
+if (strpos(strtolower($consumer), 'slicker') !== false) {
+    $consumer_key = 4;
+} elseif (strpos(strtolower($consumer), 'vertex') !== false) {
+    $consumer_key = 2;
+} elseif (strpos(strtolower($consumer), 'solea') !== false) {
+    $consumer_key = 1;
+} elseif (strpos(strtolower($consumer), 'toes') !== false) {
+    $consumer_key = 3;
+} else {
+    $consumer_key = 0;
 }
 $retailType = $_POST['retailType'];
 $serverkey = mysqli_real_escape_string($mysql,trim($_POST['serverkey']));
