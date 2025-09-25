@@ -12,7 +12,7 @@ $locationName = $data['location'];
 header("Content-type: application/vnd.ms-excel");
 header("Content-Disposition: attachment; filename=".$_REQUEST['filter_time_value'].'_'.$locationName.".xls");
 
-$query_str = "SELECT * FROM csv_data where ";
+$query_str = "SELECT * FROM csv_data_new where ";
 
 if ($_REQUEST['filter_time_type'] == 'date') {
     $array = explode('-', $_REQUEST['filter_time_value']);
@@ -54,7 +54,8 @@ try {
             <th>MOBILE NUMBER</th>
             <th>TYPE</th>
             <th>TOWN</th>
-            <th>CONSUMER</th>
+            <th>MEET TYPE</th>
+            <th>SCHEME</th>
             <th>CONSUMER SIZE</th>
             <th>SERVER</th>
             <th>TIME</th>
@@ -73,7 +74,8 @@ try {
                 <td><?= $data['mobile_number'] ?></td>
                 <td><?= $data['type'] ?></td>
                 <td><?= $data['town'] ?></td>
-                <td><?= $data['consumer'] ?></td>
+                <td><?=$data['retailType']?></td>
+                <td><?=$data['consumer']?></td>
                 <td><?= $data['consumer_size'] ?></td>
                 <td><?= $data['server'] ?></td>
                 <td><?= $data['time'] ?></td>
