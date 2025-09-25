@@ -25,9 +25,9 @@
     
     if(isset($_REQUEST['mobile'])){
         $mobile = $_REQUEST['mobile'];
-        $query = mysqli_query($mysql,"SELECT * FROM csv_data where MONTH(acutal_date) = '$month' and YEAR(acutal_date) = '$year' and mobile_number = '$mobile' and server_key = '$accesskey' order by id desc");
+        $query = mysqli_query($mysql,"SELECT * FROM csv_data_new where MONTH(acutal_date) = '$month' and YEAR(acutal_date) = '$year' and mobile_number = '$mobile' and server_key = '$accesskey' order by id desc");
     }else{
-        $query = mysqli_query($mysql,"SELECT * FROM csv_data where MONTH(acutal_date) = '$month' and YEAR(acutal_date) = '$year' and server_key = '$accesskey' order by id desc");
+        $query = mysqli_query($mysql,"SELECT * FROM csv_data_new where MONTH(acutal_date) = '$month' and YEAR(acutal_date) = '$year' and server_key = '$accesskey' order by id desc");
     }
     
     ?>
@@ -41,7 +41,8 @@
             <th>MOBILE NUMBER</th>
             <th>TYPE</th>
             <th>TOWN</th>
-            <th>CONSUMER</th>
+            <th>MEET TYPE</th>
+            <th>SCHEME</th>
             <th>CONSUMER SIZE</th>
             <th>SERVER</th>
             <th>TIME</th>
@@ -60,6 +61,7 @@
             <td><?=$data['mobile_number']?></td>
             <td><?=$data['type']?></td>
             <td><?=$data['town']?></td>
+            <td><?=$data['retailType']?></td>
             <td><?=$data['consumer']?></td>
             <td><?=$data['consumer_size']?></td>
             <td><?=$data['server']?></td>
