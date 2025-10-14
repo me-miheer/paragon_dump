@@ -126,6 +126,8 @@ if (isset($_GET['action'])) {
 
 <body class="bg-light">
     <div class="container py-4">
+        <a class="btn btn-dark" href="index.php"> < Back</a>
+        <br><br>
         <h2 class="mb-4">User Management</h2>
         <div class="mb-3">
             <input type="text" id="search" class="form-control" placeholder="Search users...">
