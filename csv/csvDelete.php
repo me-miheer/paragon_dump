@@ -39,24 +39,11 @@ if(empty($accesskey['app_access_key'])){
     echo json_encode($responce);
     exit;
 }
-
-//check weather reqquired parameters are there or not
-if(empty($_POST['id'])){
-    http_response_code(400);
-    $responce = array(
-        'status' => 'false',
-        'response_code' => '400',
-        'task_status' => 'false',
-        'message' => 'Invalid Parameters'
-    );
-    echo json_encode($responce);    
-    exit;
-}
 // Setting up all the parameters 
+$mobileNum = mysqli_real_escape_string($mysql,$_REQUEST['mobile']);
+$article = mysqli_real_escape_string($mysql,$_REQUEST['article']);
 
-$id = mysqli_real_escape_string($mysql,trim($_POST['id']));
-
-$checkuserquery = mysqli_query($mysql,"SELECT * FROM csv_data WHERE id = '$id'");
+$checkuserquery = mysqli_query($mysql,"SELECT * FROM csv_data_new WHERE qr LIKE '$article' and mobile_number = '$mobileNum'");
 $checkuser = mysqli_fetch_array($checkuserquery);
 //check weather email address already exists or not
 if(empty($checkuser['id'])){
@@ -71,7 +58,7 @@ if(empty($checkuser['id'])){
     exit;
 }
 
-$createuserquery = "DELETE from csv_data where id = $id";
+$createuserquery = "DELETE from csv_data_new where qr LIKE '$article' and mobile_number = '$mobileNum' ";
 $runcreateusersquery = mysqli_query($mysql,$createuserquery);
 // check if user created or not.
 if($runcreateusersquery){
