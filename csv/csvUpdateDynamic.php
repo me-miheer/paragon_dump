@@ -56,7 +56,7 @@ try {
 
 
     // Setting up all the parameters 
-    $name = mysqli_real_escape_string($mysql, trim( $_POST['name']));
+    $name = mysqli_real_escape_string($mysql, trim($_POST['name']));
     $qr = mysqli_real_escape_string($mysql, trim($_POST['qr']));
     $dealer = mysqli_real_escape_string($mysql, trim($_POST['dealer']));
     $shop = mysqli_real_escape_string($mysql, trim($_POST['shop']));
@@ -103,6 +103,16 @@ try {
                 'response_code' => '400',
                 'task_status' => 'false',
                 'message' => 'Quantity could be number only.'
+            );
+            echo json_encode($responce);
+            exit;
+        } else if ($value['quantity'] <= 0) {
+            http_response_code(400);
+            $responce = array(
+                'status' => 'false',
+                'response_code' => '400',
+                'task_status' => 'false',
+                'message' => 'Minimum quantity should be 1.'
             );
             echo json_encode($responce);
             exit;
