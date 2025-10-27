@@ -101,7 +101,7 @@ if (strlen($mobile) !== 10) {
 
 foreach (json_decode($consumerSizes, true) as $key => $value) {
     if (!preg_match('/^[0-9]+$/', $value['quantity'])) {
-        http_response_code(400);
+        http_response_code(200);
         $responce = array(
             'status' => 'false',
             'response_code' => '400',
@@ -111,7 +111,7 @@ foreach (json_decode($consumerSizes, true) as $key => $value) {
         echo json_encode($responce);
         exit;
     } else if ($value['quantity'] <= 0) {
-        http_response_code(400);
+        http_response_code(response_code: 200);
         $responce = array(
             'status' => 'false',
             'response_code' => '400',

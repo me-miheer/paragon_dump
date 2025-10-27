@@ -97,7 +97,7 @@ try {
 
     foreach ($incomingQuantities as $value) {
         if (!preg_match('/^[0-9]+$/', $value)) {
-            http_response_code(400);
+            http_response_code(200);
             $responce = array(
                 'status' => 'false',
                 'response_code' => '400',
@@ -106,8 +106,8 @@ try {
             );
             echo json_encode($responce);
             exit;
-        } else if ($value['quantity'] <= 0) {
-            http_response_code(400);
+        } else if ($value <= 0) {
+            http_response_code(200);
             $responce = array(
                 'status' => 'false',
                 'response_code' => '400',
