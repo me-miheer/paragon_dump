@@ -17,7 +17,7 @@ if(empty($article)){
     exit;
 }
 
-$query = "SELECT scheme FROM dumpv2 where article = '$article'";
+$query = "SELECT scheme FROM dumpv2 where article = '$article' order by desc";
 
 // Execute the query
 $result = mysqli_query($mysql, $query);
