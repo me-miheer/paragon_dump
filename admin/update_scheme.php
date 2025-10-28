@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = intval($_POST['id']);
     $scheme = mysqli_real_escape_string($mysql, $_POST['scheme']);
 
-    $allowedSchemes = ['Slicker Scheme', 'Vertex Scheme', 'Solea Scheme', 'P-Toes Scheme'];
+    $allowedSchemes = ['Scheme 1', 'Scheme 2', 'Scheme 3', 'Scheme 4'];
 
     if (!in_array($scheme, $allowedSchemes)) {
         echo json_encode(['status' => 'error', 'message' => 'Invalid scheme']);

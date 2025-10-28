@@ -132,10 +132,10 @@ $result = mysqli_query($mysql, $querySyntax);
                             <label class="form-label">Scheme</label>
                             <select class="form-select" name="scheme" id="schemeSelect" required>
                                 <option value="">Select Scheme</option>
-                                <option value="Slicker Scheme">Slicker Scheme</option>
-                                <option value="Vertex Scheme">Vertex Scheme</option>
-                                <option value="Solea Scheme">Solea Scheme</option>
-                                <option value="P-Toes Scheme">P-Toes Scheme</option>
+                                <option value="Scheme 1">Scheme 1</option>
+                                <option value="Scheme 2">Scheme 2</option>
+                                <option value="Scheme 3">Scheme 3</option>
+                                <option value="Scheme 4">Scheme 4</option>
                             </select>
                         </div>
                     </div>

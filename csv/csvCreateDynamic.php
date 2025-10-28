@@ -69,13 +69,13 @@ $town = mysqli_real_escape_string($mysql, trim($_POST['town']));
 $consumer = mysqli_real_escape_string($mysql, trim($_POST['consumer']));
 $consumerSizes = $_POST['consumerSizes'];
 $consumer_key  = 0;
-if (strpos(strtolower($consumer), 'slicker') !== false) {
+if (strpos(strtolower($consumer), 'scheme 1') !== false) {
     $consumer_key = 4;
-} elseif (strpos(strtolower($consumer), 'vertex') !== false) {
+} elseif (strpos(strtolower($consumer), 'scheme 2') !== false) {
     $consumer_key = 2;
-} elseif (strpos(strtolower($consumer), 'solea') !== false) {
+} elseif (strpos(strtolower($consumer), 'scheme 3') !== false) {
     $consumer_key = 1;
-} elseif (strpos(strtolower($consumer), 'toes') !== false) {
+} elseif (strpos(strtolower($consumer), 'scheme 4') !== false) {
     $consumer_key = 3;
 } else {
     $consumer_key = 0;
