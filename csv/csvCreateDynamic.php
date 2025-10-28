@@ -70,13 +70,13 @@ $consumer = mysqli_real_escape_string($mysql, trim($_POST['consumer']));
 $consumerSizes = $_POST['consumerSizes'];
 $consumer_key  = 0;
 if (strpos(strtolower($consumer), 'scheme 1') !== false) {
-    $consumer_key = 4;
+    $consumer_key = 1;
 } elseif (strpos(strtolower($consumer), 'scheme 2') !== false) {
     $consumer_key = 2;
 } elseif (strpos(strtolower($consumer), 'scheme 3') !== false) {
-    $consumer_key = 1;
-} elseif (strpos(strtolower($consumer), 'scheme 4') !== false) {
     $consumer_key = 3;
+} elseif (strpos(strtolower($consumer), 'scheme 4') !== false) {
+    $consumer_key = 4;
 } else {
     $consumer_key = 0;
 }
