@@ -111,7 +111,7 @@ foreach (json_decode($consumerSizes, true) as $key => $value) {
         echo json_encode($responce);
         exit;
     } else if ($value['quantity'] <= 0) {
-        http_response_code(response_code: 200);
+        http_response_code(200);
         $responce = array(
             'status' => 'false',
             'response_code' => '400',
