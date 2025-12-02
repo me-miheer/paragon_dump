@@ -3,12 +3,14 @@
 require_once '../vendor/autoload.php';
 require('../connection.php');
 
-$mpdf = new \Mpdf\Mpdf();
+$mpdf = new mPDF();
 
 $id = $_REQUEST['filter_id'];
 $stmt = $mysql->prepare("SELECT * FROM location where id = ? limit 1");
-$stmt->execute([$id]);
-$location_data = $stmt->fetch(PDO::FETCH_ASSOC);
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$result = $stmt->get_result();
+$location_data = $result->fetch_assoc();
 
 $accesskey = $location_data['accesskey'];
 $locationName = $location_data['location'];
@@ -46,7 +48,7 @@ try {
 
 $data = [
     'company_name' => 'Paragon',
-    'company_address' => 'Made with <span class="heart">❤️</span> in India'
+    'company_address' => 'Made with <span class="heart">❤️</span> in India<br><small style="font-size: 10px; color: #666;">Generated on ' . date('d-m-Y h:i A') . '</small>'
 ];
 
 $html = '
@@ -59,7 +61,7 @@ $html = '
         .logo { float: left; width: 150px; height: 80px; }
         .company-info { float: right; text-align: right; }
         .company-name { font-size: 24px; font-weight: bold; color: #2c5aa0; margin-bottom: 5px; }
-        .invoice-title { font-size: 36px; font-weight: bold; color: #2c5aa0; text-align: center; margin: 30px 0; }
+
         .invoice-details { width: 100%; margin-bottom: 30px; }
         .invoice-details td { padding: 8px 0; }
         .bill-to { background: #f8f9fa; padding: 15px; border-left: 4px solid #2c5aa0; margin-bottom: 30px; }
@@ -85,7 +87,6 @@ $html = '
         </div>
     </div>
     
-    <div class="invoice-title">DATA REPORT</div>
     
     <table class="items-table">
         <thead>
@@ -106,7 +107,7 @@ $html = '
         </thead>
         <tbody>';
 
-while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+while ($row = $query->fetch_assoc()) {
     $html .= '
             <tr>
                 <td>' . $row['qr'] . '</td>
@@ -132,4 +133,4 @@ $html .= '
 ';
 
 $mpdf->WriteHTML($html);
-$mpdf->Output($_REQUEST['filter_time_value'].'_'.$locationName.'.pdf', 'D'); // 'D' for download
+$mpdf->Output($_REQUEST['filter_time_value'].'_'.$locationName.'.pdf', 'I'); // 'D' for download
