@@ -21,6 +21,117 @@ $data = mysqli_fetch_assoc(mysqli_query($mysql, "SELECT * FROM location where id
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
   <style>
     @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css");
+    
+    /* Enhanced Export Modal Styles */
+    .export-modal-dialog {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    
+    .export-modal-content {
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 500px;
+    }
+    
+    .export-modal-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: 15px 15px 0 0;
+      border: none;
+      padding: 25px;
+    }
+    
+    .export-modal-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 0;
+    }
+    
+    .export-modal-body {
+      padding: 30px;
+      text-align: center;
+    }
+    
+    .export-options {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+    
+    .export-option {
+      flex: 1;
+      padding: 25px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid #e0e0e0;
+      background: #f9f9f9;
+      text-align: center;
+      text-decoration: none;
+      color: #333;
+    }
+    
+    .export-option:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      border-color: #667eea;
+    }
+    
+    .export-option.excel {
+      border-left: 4px solid #21a366;
+    }
+    
+    .export-option.excel:hover {
+      background: #f0f7f4;
+      border-color: #21a366;
+    }
+    
+    .export-option.pdf {
+      border-left: 4px solid #d32f2f;
+    }
+    
+    .export-option.pdf:hover {
+      background: #fef0f0;
+      border-color: #d32f2f;
+    }
+    
+    .export-icon {
+      font-size: 48px;
+      margin-bottom: 15px;
+      display: block;
+    }
+    
+    .export-option.excel .export-icon {
+      color: #21a366;
+    }
+    
+    .export-option.pdf .export-icon {
+      color: #d32f2f;
+    }
+    
+    .export-option-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 8px;
+      display: block;
+    }
+    
+    .export-option-desc {
+      font-size: 13px;
+      color: #666;
+    }
+    
+    .export-modal-footer {
+      padding: 20px;
+      border-top: 1px solid #e0e0e0;
+      text-align: center;
+    }
   </style>
   <meta name="robots" content="noindex">
 </head>
@@ -139,7 +250,7 @@ $data = mysqli_fetch_assoc(mysqli_query($mysql, "SELECT * FROM location where id
         }
 
         if(key == "export"){
-          window.location.href = "fetchDataExport.php?" + filterForm;
+          showExportPopup(filterForm);
         }
 
         if(key == "delete"){
@@ -169,6 +280,78 @@ $data = mysqli_fetch_assoc(mysqli_query($mysql, "SELECT * FROM location where id
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send("id=<?= $_GET['id'] ?>");
       }
+    }
+
+    function showExportPopup(filterForm) {
+      // Create enhanced modal HTML
+      const modalHtml = `
+        <div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="exportModalLabel" aria-hidden="true">
+          <div class="export-modal-dialog modal-dialog">
+            <div class="export-modal-content modal-content">
+              <div class="export-modal-header modal-header">
+                <h5 class="export-modal-title" id="exportModalLabel">
+                  <i class="bi bi-download"></i> Choose Export Format
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="export-modal-body modal-body">
+                <p style="color: #666; margin-bottom: 20px;">Select how you'd like to export your data</p>
+                <div class="export-options">
+                  <a class="export-option excel" onclick="exportAsExcel('${filterForm}')">
+                    <i class="bi bi-file-earmark-spreadsheet export-icon"></i>
+                    <span class="export-option-title">Excel</span>
+                    <span class="export-option-desc">.xls format</span>
+                  </a>
+                  <a class="export-option pdf" onclick="exportAsPDF('${filterForm}')">
+                    <i class="bi bi-file-earmark-pdf export-icon"></i>
+                    <span class="export-option-title">PDF</span>
+                    <span class="export-option-desc">.pdf format</span>
+                  </a>
+                </div>
+              </div>
+              <div class="export-modal-footer modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Remove existing modal if present
+      const existingModal = document.getElementById('exportModal');
+      if (existingModal) {
+        existingModal.remove();
+      }
+
+      // Add modal to DOM
+      document.body.insertAdjacentHTML('beforeend', modalHtml);
+
+      // Show modal
+      const modal = new bootstrap.Modal(document.getElementById('exportModal'));
+      modal.show();
+
+      // Remove modal from DOM when hidden
+      document.getElementById('exportModal').addEventListener('hidden.bs.modal', function () {
+        this.remove();
+      });
+    }
+
+    function exportAsExcel(filterForm) {
+      // Close modal
+      const modal = bootstrap.Modal.getInstance(document.getElementById('exportModal'));
+      modal.hide();
+      
+      // Redirect to Excel export
+      window.location.href = "fetchDataExport.php?" + filterForm;
+    }
+
+    function exportAsPDF(filterForm) {
+      // Close modal
+      const modal = bootstrap.Modal.getInstance(document.getElementById('exportModal'));
+      modal.hide();
+      
+      // Redirect to PDF export
+      window.location.href = "exportAsPDF.php?" + filterForm;
     }
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
